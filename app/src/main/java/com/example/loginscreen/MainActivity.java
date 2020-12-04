@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String filename = loginText.getText().toString() + " credentials";
-                try {
-                    FileInputStream fileInputStream = openFileInput(filename);
-                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-                    BufferedReader reader = new BufferedReader(inputStreamReader);
+                try (FileInputStream fileInputStream = openFileInput(filename);InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                     BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                    //FileInputStream fileInputStream = openFileInput(filename);
+                   // InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+                   // BufferedReader reader = new BufferedReader(inputStreamReader);
                     if (reader.readLine().equals(passText.getText().toString())){
                         Toast.makeText(MainActivity.this, "Login and password are correct", Toast.LENGTH_SHORT).show();
                     }
@@ -63,12 +64,14 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     String credentials = passText.getText().toString();
                     String filename = loginText.getText().toString() + " credentials";
-                    try {
-                        FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
-                        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
-                        BufferedWriter bw = new BufferedWriter(outputStreamWriter);
+                    try (FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
+                         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+                         BufferedWriter bw = new BufferedWriter(outputStreamWriter)) {
+                        //FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
+                       // OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+                       // BufferedWriter bw = new BufferedWriter(outputStreamWriter);
                         bw.write(credentials);
-                        bw.close();
+                       // bw.close();
                         Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                         passText.setText(null);
                         loginText.setText(null);
